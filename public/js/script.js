@@ -4,33 +4,34 @@ const API_URL = "http://localhost:3000/tasks";
 async function fetchTasks() {
     const response = await fetch(API_URL);
     const tasks = await response.json();
-    renderTasks();
+    renderTasks(tasks);
 }
 
 //Render task list
-function renderTasks(taskS) {
+function renderTasks(tasks) {
+    console.log("Rendering tasks:", tasks);  // Check if tasks are passed correctly
     const taskList = document.getElementById('task-list');
-    taskList.innerHTML = ' ';
+    taskList.innerHTML = '';
 
-    taskS.forEach((task) => {
+    tasks.forEach((task) => {
         const taskItem = document.createElement('div');
         taskItem.classList.add('task-item');
         taskItem.innerHTML = `
-        <h3>${task.title}</h3>
-        <p>${task.description || 'No description provided'}</p>
-        <label>
-          Status:
-          <select onChange="updateTaskStatus('${task._id}', this.valus)">
-           <option value="To Do" ${task.status === 'To Do' ? 'selected' : ''}> To Do</option>
-           <option value="In Progress" ${task.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-           <option value-"Done" ${task.status === 'Done' ? 'selected' : ''}>Done</option>
-          </select>
-        </label>   
+            <h3>${task.title}</h3>
+            <p>${task.description || 'No description provided'}</p>
+            <label>
+              Status:
+              <select onChange="updateTaskStatus('${task._id}', this.value)">
+                <option value="To Do" ${task.status === 'To Do' ? 'selected' : ''}> To Do</option>
+                <option value="In Progress" ${task.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                <option value="Done" ${task.status === 'Done' ? 'selected' : ''}>Done</option>
+              </select>
+            </label>
         `;
         taskList.appendChild(taskItem);
-
     });
 }
+
 
 //create new task 
 document.getElementById('task-form').addEventListener('submit', async(e) => {
