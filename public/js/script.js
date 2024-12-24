@@ -27,6 +27,7 @@ function renderTasks(tasks) {
                 <option value="Done" ${task.status === 'Done' ? 'selected' : ''}>Done</option>
               </select>
             </label>
+            <button class="delete-btn" onClick="deleteTask('${task._id}')">Delete</button>
         `;
         taskList.appendChild(taskItem);
     });
@@ -56,6 +57,17 @@ async function updateTaskStatus(id, status) {
         method: 'PATCH',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ status }),
+    });
+    fetchTasks();
+}
+
+//delete task
+async function deleteTask(id) {
+    const confirmation = confirm("Are you sure you want to delete this task?");
+    if(!confirmation) return;
+
+    await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
     });
     fetchTasks();
 }

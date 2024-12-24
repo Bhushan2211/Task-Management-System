@@ -50,6 +50,9 @@ body {
   }
   
   .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
@@ -65,4 +68,18 @@ body {
     padding: 5px;
     border-radius: 4px;
   }
-  
+
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.delete-btn:hover {
+  background-color: darkred;
+}
