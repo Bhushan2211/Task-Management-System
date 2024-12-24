@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Task = require("../models/task");
+const sendEmail = require("../../sendEmail");
 
 
 //fetch all tasks
@@ -28,7 +29,8 @@ router.patch("/:id", async(req, res) => {
     task.status = status;
     await task.save();
 
-
+  // send email notification
+  await sendEmail(`Task "${task.title}" Status Updated`, `The status of the task "${task.title}" has been updated to ${status}".`);
 
     res.json(task);
 });
